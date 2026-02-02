@@ -1,0 +1,20 @@
+{
+  "name": "to-do-list",
+  "version": "1.0.0",
+  "description": "Backend of a to-do list application. Node and Express practice.",
+  "homepage": "https://github.com/chull14/To-Do-List-Backend#readme",
+  "bugs": {
+    "url": "https://github.com/chull14/To-Do-List-Backend/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chull14/To-Do-List-Backend.git"
+  },
+  "license": "ISC",
+  "author": "Connor Hull",
+  "type": "module",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
