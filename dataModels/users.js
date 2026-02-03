@@ -14,8 +14,7 @@ const userSchema = new Schema({
     required: true
   },
   userId: {
-    type: mongoose.Schema.Types.ObjectId,
-    required: true
+    type: mongoose.Schema.Types.ObjectId
   }
 });
 

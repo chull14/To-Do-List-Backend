@@ -1,7 +1,8 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import { configDotenv } from 'dotenv';
-import taskRoute from './routes/taskRoutes.js'
+import taskRoute from './routes/taskRoutes.js';
+import userRoute from './routes/userRoutes.js';
 
 const app = express();
 const router = express.Router();
@@ -17,6 +18,14 @@ router.get('/', (req, res, next) => {
   res.send("Hello");
   res.end();
 });
+
+router.route('/users')
+  .post(userRoute.createUser)
+  .get(userRoute.getAllUsers);
+
+router.route('/users/:_id')
+  .get(userRoute.getUser)
+  .delete(userRoute.deleteUser)
 
 router.route('/tasks')
   .get(taskRoute.getAllTasks)

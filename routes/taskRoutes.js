@@ -6,10 +6,10 @@ const getAllTasks = async (req, res) => {
     const tasks = await Task.find({}).exec();
 
     if (tasks.length == 0) {
-      res.status(404).json({ notice: "You have no tasks :) Good job!" });
-    } else {
-      res.status(200).json({ Tasks: tasks });
+      return res.status(404).json({ notice: "You have no tasks :) Good job!" });
     };
+
+    res.status(200).json({ Tasks: tasks });
   } catch (error) {
     console.log(error);
     res.status(404).json({ message: "Unable to retrieve tasks" });
@@ -46,7 +46,10 @@ const deleteTask = async (req, res) => {
   try {
     const taskID = req.params._id;
     let toDelete = await Task.findById(taskID).exec();
-    if (!toDelete) res.status(404).json({ notice: "Specified task not found" });
+
+    if (!toDelete) {
+      return res.status(404).json({ notice: "Specified task not found" });
+    };
 
     await Task.deleteOne({ _id: taskID }).exec()
 
@@ -66,6 +69,10 @@ const updateTask = async (req, res) => {
     const taskID = req.params._id;
     const task = await Task.findById(taskID).exec();
 
+    if (!req.body.length) {
+      return res.status(400).json({ notice: "No fields to update given" });
+    };
+
     const allowedFields = ['taskTitle', 'description', 'status'];
     allowedFields.forEach((field) => {
       if (req.body[field] !== undefined) {
@@ -77,13 +84,13 @@ const updateTask = async (req, res) => {
 
     if (task['status'] === true) {
       await Task.findByIdAndDelete(taskID).exec();
-      res.status(200).json({ confirm: "Successful completion! Task successfully removed from list" });
-    } else {
-      res.status(200).json({
-        confirm: "Task updated successfully",
-        data: task
-      });
+      return res.status(200).json({ confirm: "Successful completion! Task successfully removed from list" });
     };
+
+    res.status(200).json({
+      confirm: "Task updated successfully",
+      data: task
+    });
   } catch (error) {
     console.log(error);
     res.status(400).json({ message: "Unable to update specified task" });
