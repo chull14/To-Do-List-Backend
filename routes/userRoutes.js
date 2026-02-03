@@ -1,4 +1,10 @@
 import User from '../dataModels/users.js';
+import bcrypt from 'bcrypt';
+
+const hash_password = async (password, saltRounds = 10) => {
+  const hash = await bcrypt.hash(password, saltRounds);
+  return hash;
+};
 
 // create a user POST
 const createUser = async (req, res) => {
@@ -8,11 +14,13 @@ const createUser = async (req, res) => {
       password
     } = req.body;
 
-    if (!email || !password) return res.status(400).json({ notice: "Email and password are required" })
+    if (!email || !password) return res.status(400).json({ notice: "Email and password are required" });
+
+    const hashedPWD = await hash_password(password);
 
     const newUser = new User({
       email: email,
-      password: password
+      password: hashedPWD
     });
 
     await newUser.save();
@@ -92,5 +100,42 @@ const getAllUsers = async (req, res) => {
 };
 
 // update user email or password PUT (might not implement)
+const updateUser = async (req, res) => {
+  try {
+    const userID = req.params.id;
+    if (userID !== req.user.id) {
+      return res.status(403).json({ notice: "Authentication Error: Unauthorized User" })
+    };
 
-export default { createUser, deleteUser, getUser, getAllUsers };
+    const allowedFields = ["email", "password", "newEmail", "newPassword"];
+    if ((Object.keys(req.body) === 0) || !(Object.keys(req.body).every((key) => key in allowedFields))) {
+      return res.status(400).json({ notice: "No valid fields to update given" });
+    };
+
+    const userToUpdate = await User.findById(userID).exec();
+
+    for (const field of allowedFields) {
+      if ((req.body[field] !== undefined) && (field === "newEmail")) {
+        userToUpdate.email = req.body[field];
+      } else if ((req.body[field] !== undefined) && (field === "newPassword")) {
+        const newPWD = req.body[field];
+        const newHashedPWD = await hash_password(newPWD);
+        userToUpdate.password = newHashedPWD;
+      };
+    }
+
+    await userToUpdate.save();
+
+    console.log(userToUpdate);
+
+    res.status(201).json({
+      confirm: "User successfully updated",
+      data: userToUpdate
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Server Error" });
+  }
+};
+
+export default { createUser, deleteUser, getUser, getAllUsers, updateUser };

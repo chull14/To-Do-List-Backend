@@ -36,15 +36,16 @@ TO-DO-LIST APPLICATION (BACKEND):
       DELETE /tasks/:_id : delete a specified task
 
     Users:
-      POST /users : create a new user (email, password)
+      POST /users : create a new user (email, hashed password)
       GET /users : fetch all users (for development)
       DELETE /users/:_id : delete a specified user
       GET /users/:_id : fetch specified user data (for development)
-      PUT /users/:_id : working on this
+      PUT /users/:_id : update specific user with authentication
 
   MIDDLEWARE:
 
-    Logging:
-      logEvents : log all incoming requests
+    Authentication:
+      userAuth : authenticate a user with email and password
+
     
 

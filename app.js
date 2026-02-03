@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import { configDotenv } from 'dotenv';
 import taskRoute from './routes/taskRoutes.js';
 import userRoute from './routes/userRoutes.js';
+import authUser from './middleware/userAuth.js';
 
 const app = express();
 const router = express.Router();
@@ -28,7 +29,8 @@ router.route('/users')
 // users ID endpoint
 router.route('/users/:id')
   .get(userRoute.getUser)
-  .delete(userRoute.deleteUser);
+  .delete(userRoute.deleteUser)
+  .put(authUser.verifyUser, userRoute.updateUser);
 
 // tasks endpoint
 router.route('/tasks')
