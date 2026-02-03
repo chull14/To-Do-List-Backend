@@ -1,6 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import { configDotenv } from 'dotenv';
+import taskRoute from './routes/taskRoutes.js'
 
 const app = express();
 const router = express.Router();
@@ -9,11 +10,21 @@ configDotenv('./.env');
 const PORT = process.env.PORT;
 const db = process.env.MONGO_URI;
 
+app.use(express.json())
+
 router.get('/', (req, res, next) => {
   console.log("Router is working");
   res.send("Hello");
   res.end();
 });
+
+router.route('/tasks')
+  .get(taskRoute.getAllTasks)
+  .post(taskRoute.createTask);
+
+router.route('/tasks/:_id')
+  .delete(taskRoute.deleteTask)
+  .put(taskRoute.updateTask);
 
 app.use(router);
 

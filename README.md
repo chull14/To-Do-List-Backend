@@ -22,6 +22,6 @@ User ID
 ROUTES:
 GET /tasks : fetch all tasks
 POST /tasks : create a new task
-PUT /tasks/:id : update a task (completion, text edit)
-DELETE /tasks/:id : delete a task
+PUT /tasks/:_id : update a task (completion, text edit)
+DELETE /tasks/:_id : delete a task
 
