@@ -2,7 +2,9 @@
 This is a very small personal project that is meant to practice basic capabilities of node and express. Also to practice general workflow of web applications.
 
 Language - JavaScript
+
 Framework - Node.js, Express.js
+
 Database - MongoDB
 
 Dependencies - see package.json 
@@ -11,7 +13,7 @@ Dependencies - see package.json
 TO-DO-LIST APPLICATION (BACKEND): 
 
   DATA MODEL STRUCTURES:
-  
+
     Task:
       Task ID
       Task Title
