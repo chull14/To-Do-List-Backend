@@ -11,32 +11,38 @@ configDotenv('./.env');
 const PORT = process.env.PORT;
 const db = process.env.MONGO_URI;
 
-app.use(express.json())
+app.use(express.json());
 
+// home page
 router.get('/', (req, res, next) => {
   console.log("Router is working");
   res.send("Hello");
   res.end();
 });
 
+// users endpoint
 router.route('/users')
   .post(userRoute.createUser)
   .get(userRoute.getAllUsers);
 
+// users ID endpoint
 router.route('/users/:id')
   .get(userRoute.getUser)
-  .delete(userRoute.deleteUser)
+  .delete(userRoute.deleteUser);
 
+// tasks endpoint
 router.route('/tasks')
   .get(taskRoute.getAllTasks)
   .post(taskRoute.createTask);
 
+// tasks ID endpoint
 router.route('/tasks/:id')
   .delete(taskRoute.deleteTask)
   .put(taskRoute.updateTask);
 
 app.use(router);
 
+// start server only when we connect to DB
 async function startServer() {
   try {
     await mongoose.connect(db);
