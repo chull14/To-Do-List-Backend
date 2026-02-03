@@ -1,5 +1,5 @@
 # To-Do-List-Backend
-This is a very small personal project that is meant to practice basic capabilities of node and express. Also to practice general workflow of web applications.
+This is a very small personal mini-project that is meant to practice basic capabilities of node and express. Also to practice general workflow of web applications.
 
 Language - JavaScript
 
@@ -9,6 +9,10 @@ Database - MongoDB
 
 Dependencies - see package.json 
     (to install dependencies 'npm install' from package.json)
+
+Environment Variables - PORT (port number), MONGO_URI (mongoDB URI for database connection)
+
+How To Run? - npm start
 
 TO-DO-LIST APPLICATION (BACKEND): 
 
