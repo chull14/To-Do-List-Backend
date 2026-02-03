@@ -23,7 +23,7 @@ router.route('/users')
   .post(userRoute.createUser)
   .get(userRoute.getAllUsers);
 
-router.route('/users/:_id')
+router.route('/users/:id')
   .get(userRoute.getUser)
   .delete(userRoute.deleteUser)
 
@@ -31,7 +31,7 @@ router.route('/tasks')
   .get(taskRoute.getAllTasks)
   .post(taskRoute.createTask);
 
-router.route('/tasks/:_id')
+router.route('/tasks/:id')
   .delete(taskRoute.deleteTask)
   .put(taskRoute.updateTask);
 

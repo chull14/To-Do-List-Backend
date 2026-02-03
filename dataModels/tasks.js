@@ -5,7 +5,7 @@ const taskSchema = new Schema({
   taskId: {
     type: mongoose.Schema.Types.ObjectId
   },
-  taskTitle: { type: String },
+  title: { type: String },
   description: { type: String },
   status: { type: Boolean, default: false }
 }, { timestamps: true });

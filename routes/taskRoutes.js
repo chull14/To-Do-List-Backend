@@ -5,14 +5,17 @@ const getAllTasks = async (req, res) => {
   try {
     const tasks = await Task.find({}).exec();
 
-    if (tasks.length == 0) {
-      return res.status(404).json({ notice: "You have no tasks :) Good job!" });
+    if (tasks.length === 0) {
+      return res.status(200).json({
+        notice: "You have no tasks :) Good job!",
+        data: {}
+      });
     };
 
     res.status(200).json({ Tasks: tasks });
   } catch (error) {
     console.log(error);
-    res.status(404).json({ message: "Unable to retrieve tasks" });
+    res.status(500).json({ message: "Server Error: Unable to retrieve tasks" });
   }
 };
 
@@ -24,8 +27,10 @@ const createTask = async (req, res) => {
       description
     } = req.body;
 
+    if (!title || !description) return res.status(400).json({ notice: "Title and description are required" });
+
     const newTask = new Task({
-      taskTitle: title,
+      title: title,
       description: description
     });
 
@@ -44,14 +49,14 @@ const createTask = async (req, res) => {
 // delete task DELETE
 const deleteTask = async (req, res) => {
   try {
-    const taskID = req.params._id;
+    const taskID = req.params.id;
     let toDelete = await Task.findById(taskID).exec();
 
     if (!toDelete) {
       return res.status(404).json({ notice: "Specified task not found" });
     };
 
-    await Task.deleteOne({ _id: taskID }).exec()
+    await Task.deleteOne({ _id: taskID }).exec();
 
     res.status(200).json({
       confirm: "Task successfully deleted from list",
@@ -59,21 +64,25 @@ const deleteTask = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    res.status(400).json({ message: "Unable to perform deletion of task" })
+    res.status(400).json({ message: "Unable to perform deletion of task" });
   }
-}
+};
 
 //update task PUT
 const updateTask = async (req, res) => {
   try {
-    const taskID = req.params._id;
+    const taskID = req.params.id;
     const task = await Task.findById(taskID).exec();
 
-    if (!req.body.length) {
+    if (Object.keys(req.body) === 0) {
       return res.status(400).json({ notice: "No fields to update given" });
     };
 
-    const allowedFields = ['taskTitle', 'description', 'status'];
+    if (!task) {
+      return res.status(404).json({ notice: "Specified task not found" });
+    };
+
+    const allowedFields = ['title', 'description', 'status'];
     allowedFields.forEach((field) => {
       if (req.body[field] !== undefined) {
         task[field] = req.body[field];
@@ -81,11 +90,6 @@ const updateTask = async (req, res) => {
     });
 
     await task.save();
-
-    if (task['status'] === true) {
-      await Task.findByIdAndDelete(taskID).exec();
-      return res.status(200).json({ confirm: "Successful completion! Task successfully removed from list" });
-    };
 
     res.status(200).json({
       confirm: "Task updated successfully",
@@ -95,6 +99,6 @@ const updateTask = async (req, res) => {
     console.log(error);
     res.status(400).json({ message: "Unable to update specified task" });
   }
-}
+};
 
-export default { getAllTasks, createTask, deleteTask, updateTask }
+export default { getAllTasks, createTask, deleteTask, updateTask };
