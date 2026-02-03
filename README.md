@@ -1,18 +1,18 @@
 # To-Do-List-Backend
 This is a very small personal mini-project that is meant to practice basic capabilities of node and express. Also to practice general workflow of web applications.
 
-Language - JavaScript
+LANGUAGE - JavaScript
 
-Framework - Node.js, Express.js
+FRAMEWORK - Node.js, Express.js
 
-Database - MongoDB
+DATABASE - MongoDB
 
-Dependencies - see package.json 
+DEPENDENCIES - see package.json 
     (to install dependencies 'npm install' from package.json)
 
-Environment Variables - PORT (port number), MONGO_URI (mongoDB URI for database connection)
+ENVIRONMENT VARIABLES - PORT (port number), MONGO_URI (mongoDB URI for database connection)
 
-How To Run? - npm start
+HOW TO RUN - npm start
 
 TO-DO-LIST APPLICATION (BACKEND): 
 
