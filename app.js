@@ -27,8 +27,8 @@ async function startServer() {
       console.log(`Express Server Listening on port ${PORT}`);
     });
   } catch (error) {
-    return console.log("Failed to Connect to Database")
+    return console.log("Failed to Connect to Database");
   }
 };
 
-startServer()
+startServer();
