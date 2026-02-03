@@ -11,6 +11,7 @@ Dependencies - see package.json
 TO-DO-LIST APPLICATION (BACKEND): 
 
   DATA MODEL STRUCTURES:
+  
     Task:
       Task ID
       Task Title
@@ -25,6 +26,7 @@ TO-DO-LIST APPLICATION (BACKEND):
       Password (will be encrypted in DB)
 
   ROUTES:
+
     Tasks:
       GET /tasks : fetch all tasks
       POST /tasks : create a new task
@@ -37,4 +39,10 @@ TO-DO-LIST APPLICATION (BACKEND):
       DELETE /users/:_id : delete a specified user
       GET /users/:_id : fetch specified user data (for development)
       PUT /users/:_id : working on this
+
+  MIDDLEWARE:
+
+    Logging:
+      logEvents : log all incoming requests
+    
 
