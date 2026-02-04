@@ -108,7 +108,7 @@ const updateUser = async (req, res) => {
     };
 
     const allowedFields = ["email", "password", "newEmail", "newPassword"];
-    if ((Object.keys(req.body) === 0) || !(Object.keys(req.body).every((key) => key in allowedFields))) {
+    if ((Object.keys(req.body).length === 0) || Object.keys(req.body).every((key) => key in allowedFields)) {
       return res.status(400).json({ notice: "No valid fields to update given" });
     };
 

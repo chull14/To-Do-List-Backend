@@ -50,6 +50,3 @@ TO-DO-LIST APPLICATION (BACKEND):
 
     Authentication:
       userAuth : authenticate a user with email and password
-
-    
-
